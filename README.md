@@ -21,4 +21,6 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
       [applications: [:open_exchange_rates]]
     end
     ```
+## Configuration
 
+Please make sure to set the OER_APP_ID environment to you app_id key.

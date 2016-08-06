@@ -27,4 +27,9 @@ use Mix.Config
 # Configuration from the imported file will override the ones defined
 # here (which is why it is important to import them last).
 #
-#     import_config "#{Mix.env}.exs"
+
+config :open_exchange_rates,
+  app_id: System.get_env("OER_APP_ID"),
+  cache_time_in_minutes: 5
+
+import_config "#{Mix.env}.exs"
