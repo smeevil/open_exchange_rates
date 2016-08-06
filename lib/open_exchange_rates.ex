@@ -1,0 +1,2 @@
+defmodule OpenExchangeRates do
+end
