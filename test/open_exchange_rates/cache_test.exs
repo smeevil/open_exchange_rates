@@ -2,6 +2,8 @@ defmodule OpenExchangeRates.CacheTest do
   use ExUnit.Case
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
+  doctest OpenExchangeRates.Cache
+
 #  test "it should return a timestamp of the cache" do
 #    assert {:ok, 1470489905} = OpenExchangeRates.Cache.timestamp
 #  end

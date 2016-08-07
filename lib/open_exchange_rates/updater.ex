@@ -1,9 +1,14 @@
 defmodule OpenExchangeRates.Updater do
+  @moduledoc """
+  This module takes care of updating the cache with new conversion rates from openexchangerates.org and is for internal use only.
+  """
+
   require Logger
   use GenServer
 
   @cache_file (File.cwd! <> "/priv/latest.json")
 
+  @doc false
   def start_link do
     {:ok, pid} = GenServer.start_link(__MODULE__, nil, name: __MODULE__)
     maybe_load_data_from_disk
@@ -11,9 +16,18 @@ defmodule OpenExchangeRates.Updater do
     {:ok, pid}
   end
 
+  @doc false
   def init(_opts) do
-    :timer.apply_interval(:timer.seconds(10), __MODULE__, :check_for_update, [])
+    :timer.apply_interval(:timer.seconds(60), __MODULE__, :check_for_update, [])
     {:ok, %{last_updated_at: 0}}
+  end
+
+  @doc false
+  def check_for_update do
+    last_updated_at = GenServer.call(__MODULE__, {:last_updated_at})
+    diff =  (:os.system_time(:seconds) - last_updated_at) / 60
+    cache_time = Application.get_env(:open_exchange_rates, :cache_time_in_minutes, 3600)
+    if diff >= cache_time, do: update
   end
 
   defp maybe_load_data_from_disk do
@@ -43,13 +57,6 @@ defmodule OpenExchangeRates.Updater do
       {:ok, data} -> data |> write_to_disk! |> update_cache!
       {:error, message} -> {:error, message}
     end
-  end
-
-  def check_for_update do
-    last_updated_at = GenServer.call(__MODULE__, {:last_updated_at})
-    diff =  (:os.system_time(:seconds) - last_updated_at) / 60
-    cache_time = Application.get_env(:open_exchange_rates, :cache_time_in_minutes, 3600)
-    if diff >= cache_time, do: update
   end
 
   defp update_cache!(%{"rates" => rates}), do: GenServer.call(OpenExchangeRates.Cache, {:update!, rates})

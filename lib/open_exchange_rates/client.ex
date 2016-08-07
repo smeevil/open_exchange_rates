@@ -1,6 +1,12 @@
 defmodule OpenExchangeRates.Client do
+  @moduledoc """
+  This module takes care of the API communication between openexchangerates.org and is for internal use only
+  """
+
   @app_id Application.get_env(:open_exchange_rates, :app_id)
 
+  @doc false
+  @spec get_latest() :: {:ok, Map.t} | {:error, String.t}
   def get_latest do
     response = HTTPoison.get("https://openexchangerates.org/api/latest.json?base=USD&app_id=#{@app_id}")
     case response do

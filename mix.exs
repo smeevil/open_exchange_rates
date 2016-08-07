@@ -9,6 +9,7 @@ defmodule OpenExchangeRates.Mixfile do
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
       deps: deps(),
+      docs: [extras: ["README.md"]]
     ]
   end
 
@@ -26,6 +27,7 @@ defmodule OpenExchangeRates.Mixfile do
       {:exvcr, ">0.0.0"},
       {:credo, ">0.0.0", only: [:dev, :test]},
       {:mix_test_watch, ">0.0.0", only: [:dev, :test]},
+      {:ex_doc, ">0.0.0", only: [:dev, :test]},
     ]
   end
 end
