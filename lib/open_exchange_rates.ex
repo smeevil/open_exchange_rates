@@ -6,6 +6,7 @@ defmodule OpenExchangeRates do
 
     children = [
       worker(OpenExchangeRates.Cache, []),
+      worker(OpenExchangeRates.Updater, []),
     ]
 
     opts = [strategy: :one_for_one, name: OpenExchangeRates.Supervisor]
