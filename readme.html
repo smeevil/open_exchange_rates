@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.13.0">
+    <title>OpenExchangeRates – open_exchange_rates v0.1.0</title>
+    <link rel="stylesheet" href="dist/app-9c1e3d5aa2.css" />
+    
+    <script src="dist/sidebar_items.js"></script>
+  </head>
+  <body data-type="extras">
+    <script>if(localStorage.getItem('night-mode')) document.body.className += ' night-mode';</script>
+
+<div class="main">
+<button class="sidebar-toggle">
+  <i class="icon-menu"></i>
+</button>
+<section class="sidebar">
+
+  
+  <a href="api-reference.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        open_exchange_rates
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v0.1.0
+      </h2>
+    </div>
+    
+  </a>
+
+  <div class="sidebar-search">
+    <i class="icon-search"></i>
+    <input type="text" class="sidebar-searchInput" placeholder="search" autocomplete="off" />
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+    
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+    
+
+    
+
+    
+  </ul>
+
+  <ul id="full-list" class="sidebar-fullList"></ul>
+  <div class="sidebar-noResults"></div>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+
+<h1>OpenExchangeRates</h1>
+<p>This Elixir library uses the <a href="https://openexchangerates.org">openexchangerates.org</a> API to retieve the latest exchange rates.</p>
+<p>At initialization of the library, it will use the latest exchange rates from a cache file. After initialization it will immediately try to get the latest exchange rates from openexchangerates.org. If this fails it will retry to get a new update every minute.</p>
+<p>After a successful update, it will check every minute if the cache needs to be updated and fetches the new rates from openexchangerates.org. You can configure the cache time, which by default is 24 hours. Please take in account that every check will be taking credits from your API usage.</p>
+<p>To be able to use this library you will need an API token from openexchangerates.org which you can get <a href="https://openexchangerates.org/signup">here</a>.</p>
+<h2>Using it without an API key</h2>
+<p>This library will still function without a connection to the <a href="https://openexchangerates.org">openexchangerates.org</a> API but please take into account the exchanges rates are coming from an (outdated) cache. This cache will be updated with every release of this library.</p>
+<h2>Example usage</h2>
+<p>This library gives you the following functions :</p>
+<ul>
+<li>List available currencies
+</li>
+</ul>
+<pre><code class="elixir">OpenExchangeRates.available_currencies |&gt; Enum.take(10)
+[&quot;AWG&quot;, &quot;NAD&quot;, &quot;INR&quot;, &quot;LAK&quot;, &quot;BOB&quot;, &quot;MOP&quot;, &quot;QAR&quot;, &quot;SDG&quot;, &quot;TMT&quot;, &quot;BRL&quot;]</code></pre>
+<ul>
+<li>Get the exchange rate for USD to an other currency
+</li>
+</ul>
+<pre><code class="elixir">OpenExchangeRates.rate_for_currency(:EUR)
+{:ok, 0.902}</code></pre>
+<ul>
+<li>Convert any currency to an other
+</li>
+</ul>
+<pre><code class="elixir">OpenExchangeRates.convert(100.00, :EUR, :GBP)
+{:ok, 84.81186252771619}</code></pre>
+<ul>
+<li>Convert cents in any currency to an other
+</li>
+</ul>
+<pre><code class="elixir">OpenExchangeRates.convert_cents(100, :GBP, :AUD)
+{:ok, 172}</code></pre>
+<h2 id="installation" class="section-heading">
+  <a href="#installation" class="hover-link"><i class="icon-link"></i></a>
+   Installation
+</h2><p>If <a href="https://hex.pm/docs/publish">available in Hex</a>, the package can be installed as:</p>
+<ol>
+<li><p>Add <code class="inline">open_exchange_rates</code> to your list of dependencies in <code class="inline">mix.exs</code>:</p>
+<pre><code class="elixir">    def deps do
+      [{:open_exchange_rates, &quot;~&gt; 0.1.0&quot;}]
+    end
+    ```</code></pre>
+</li>
+<li><p>Ensure <code class="inline">open_exchange_rates</code> is started before your application:</p>
+<pre><code class="elixir">    def application do
+      [applications: [:open_exchange_rates]]
+    end
+    ```</code></pre>
+</li>
+</ol>
+<h2 id="configuration" class="section-heading">
+  <a href="#configuration" class="hover-link"><i class="icon-link"></i></a>
+   Configuration
+</h2><p>Please add the following config to your config.exs</p>
+<pre><code class="elixir">config :open_exchange_rates,
+  app_id: &quot;MY API KEY&quot;,
+  cache_time_in_minutes: 1440 #24 hours</code></pre>
+<h2>Testing the library</h2>
+<p>Before you run the tests, please make sure to set the OER_APP_ID environment to you app_id key.</p>
+
+      <footer class="footer">
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.13.0),
+          </span>
+          <span class="line">
+            designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+            </span>
+        </p>
+        <button class="night-mode-toggle" />
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+  <script src="dist/app-21f1a20b9e.js"></script>
+  </body>
+</html>
+
