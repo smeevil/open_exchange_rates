@@ -3,9 +3,11 @@ defmodule OpenExchangeRates do
   This module contains all the helper methods for converting currencies
   """
   use Application
+  import Logger
 
   @doc false
   def start(_type, _args) do
+    check_configuration
     import Supervisor.Spec, warn: false
 
     children = [
@@ -81,4 +83,25 @@ defmodule OpenExchangeRates do
   """
   @spec rate_for_currency((String.t| Atom.t)) :: {:ok, Float.t} | {:error, String.t}
   def rate_for_currency(currency), do: OpenExchangeRates.Cache.rate_for_currency(currency)
+
+
+  defp check_configuration do
+    case Application.get_env(:open_exchange_rates, :app_id) do
+      nil -> Logger.warn ~s[
+OpenExchangeRates :
+
+No App ID provided.
+
+Please check if your config.exs contains the following :
+  config :open_exchange_rates,
+    app_id: "MY_OPENEXCHANGE_RATES_ORG_API_KEY",
+    cache_time_in_minutes: 1440
+
+If you need an api key please sign up at https://openexchangerates.org/signup
+
+This module will continue to function but will use (outdated) cached exchange rates data...
+      ]
+      _ -> nil
+    end
+  end
 end

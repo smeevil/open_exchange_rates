@@ -9,3 +9,7 @@ config :exvcr, [
   filter_url_params: false,
   response_headers_blacklist: []
 ]
+
+config :open_exchange_rates,
+  app_id: System.get_env("OER_APP_ID"),
+  cache_time_in_minutes: 1440
