@@ -3,20 +3,24 @@ defmodule OpenExchangeRates do
   This module contains all the helper methods for converting currencies
   """
   use Application
-  import Logger
+  require Logger
 
   @doc false
   def start(_type, _args) do
-    check_configuration
     import Supervisor.Spec, warn: false
 
     children = [
       worker(OpenExchangeRates.Cache, []),
-      worker(OpenExchangeRates.Updater, []),
     ]
+
+    children = case check_configuration do
+      :ok -> children ++ [worker(OpenExchangeRates.Updater, [])]
+      :error -> children
+    end
 
     opts = [strategy: :one_for_one, name: OpenExchangeRates.Supervisor]
     Supervisor.start_link(children, opts)
+
   end
 
   @doc"""
@@ -101,7 +105,8 @@ If you need an api key please sign up at https://openexchangerates.org/signup
 
 This module will continue to function but will use (outdated) cached exchange rates data...
       ]
-      _ -> nil
+      :error
+      _ -> :ok
     end
   end
 end

@@ -7,6 +7,7 @@ defmodule OpenExchangeRates.Updater do
   use GenServer
 
   @cache_file (File.cwd! <> "/priv/latest.json")
+  @update_interval_in_seconds 60
 
   @doc false
   def start_link do
@@ -18,7 +19,7 @@ defmodule OpenExchangeRates.Updater do
 
   @doc false
   def init(_opts) do
-    :timer.apply_interval(:timer.seconds(60), __MODULE__, :check_for_update, [])
+    :timer.apply_interval(:timer.seconds(@update_interval_in_seconds), __MODULE__, :check_for_update, [])
     {:ok, %{last_updated_at: 0}}
   end
 
@@ -26,7 +27,7 @@ defmodule OpenExchangeRates.Updater do
   def check_for_update do
     last_updated_at = GenServer.call(__MODULE__, {:last_updated_at})
     diff =  (:os.system_time(:seconds) - last_updated_at) / 60
-    cache_time = Application.get_env(:open_exchange_rates, :cache_time_in_minutes, 3600)
+    cache_time = Application.get_env(:open_exchange_rates, :cache_time_in_minutes, 1440)
     if diff >= cache_time, do: update
   end
 

@@ -2,6 +2,7 @@ defmodule OpenExchangeRates.Client do
   @moduledoc """
   This module takes care of the API communication between openexchangerates.org and is for internal use only
   """
+  require Logger
 
   @app_id Application.get_env(:open_exchange_rates, :app_id)
 
@@ -23,6 +24,7 @@ defmodule OpenExchangeRates.Client do
 
   defp handle_api_error(body) do
     data = Poison.decode!(body)
+    if data["message"] == "invalid_app_id", do: Logger.error("OpenExchangeRates: The app id `#{@app_id}` is not valid !")
     {:error, data["description"]}
   end
 end
