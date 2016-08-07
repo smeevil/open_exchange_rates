@@ -66,6 +66,8 @@ config :open_exchange_rates,
   cache_time_in_minutes: 1440 #24 hours
 ```
 
+## Documentation
+The documentation can be found [here](https://smeevil.github.io/open_exchange_rates/OpenExchangeRates.html)
 
 ## Testing the library
 Before you run the tests, please make sure to set the OER_APP_ID environment to you app_id key.
