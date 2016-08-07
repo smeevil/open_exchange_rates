@@ -28,7 +28,7 @@ defmodule OpenExchangeRates.Mixfile do
     [
       {:httpoison, "~>0.9.0"},
       {:poison, "~>2.2.0"},
-      {:exvcr, "~>0.8.1"},
+      {:exvcr, "~>0.8.1", only: [:dev, :test]},
       {:credo, "~>0.4.7", only: [:dev, :test]},
       {:mix_test_watch, "~>0.2.6", only: [:dev, :test]},
       {:ex_doc, "~>0.13.0", only: [:dev, :test]},
