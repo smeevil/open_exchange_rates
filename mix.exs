@@ -9,7 +9,9 @@ defmodule OpenExchangeRates.Mixfile do
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
       deps: deps(),
-      docs: [extras: ["README.md"]]
+      docs: [extras: ["README.md"]],
+      preferred_cli_env: ["coveralls": :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
+      test_coverage: [tool: ExCoveralls]
     ]
   end
 
@@ -28,6 +30,7 @@ defmodule OpenExchangeRates.Mixfile do
       {:credo, ">0.0.0", only: [:dev, :test]},
       {:mix_test_watch, ">0.0.0", only: [:dev, :test]},
       {:ex_doc, ">0.0.0", only: [:dev, :test]},
+      {:excoveralls, "~> 0.5", only: :test},
     ]
   end
 end
