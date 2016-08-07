@@ -1,4 +1,5 @@
 # OpenExchangeRates
+[![Build Status](https://semaphoreci.com/api/v1/smeevil/open_exchange_rates/branches/master/shields_badge.svg)](https://semaphoreci.com/smeevil/open_exchange_rates) [![Coverage Status](https://coveralls.io/repos/github/smeevil/open_exchange_rates/badge.svg?branch=master)](https://coveralls.io/github/smeevil/open_exchange_rates?branch=master) [![Deps Status](https://beta.hexfaktor.org/badge/all/github/smeevil/open_exchange_rates.svg)](https://beta.hexfaktor.org/github/smeevil/open_exchange_rates)
 
 This Elixir library uses the [openexchangerates.org](https://openexchangerates.org) API to retieve the latest exchange rates.
 
