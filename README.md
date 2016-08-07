@@ -8,6 +8,8 @@ After a successful update, it will check every minute if the cache needs to be u
 
 To be able to use this library you will need an API token from openexchangerates.org which you can get [here](https://openexchangerates.org/signup).
 
+## Using it without an API key
+This library will still function without a connection to the [openexchangerates.org](https://openexchangerates.org) API but please take into account the exchanges rates are coming from an (outdated) cache. This cache will be updated with every release of this library.
 ## Example usage
 This library gives you the following functions :
 
