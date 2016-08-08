@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.13.0">
-    <title>OpenExchangeRates – open_exchange_rates v0.1.0</title>
+    <title>README – open_exchange_rates v0.2.0</title>
     <link rel="stylesheet" href="dist/app-9c1e3d5aa2.css" />
     
     <script src="dist/sidebar_items.js"></script>
@@ -26,7 +26,7 @@
         open_exchange_rates
       </h1>
       <h2 class="sidebar-projectVersion">
-        v0.1.0
+        v0.2.0
       </h2>
     </div>
     
@@ -59,6 +59,7 @@
 
 
 <h1>OpenExchangeRates</h1>
+<p><a href="https://semaphoreci.com/smeevil/open_exchange_rates"><img src="https://semaphoreci.com/api/v1/smeevil/open_exchange_rates/branches/master/shields_badge.svg" alt="Build Status"/></a> <a href="https://coveralls.io/github/smeevil/open_exchange_rates?branch=master"><img src="https://coveralls.io/repos/github/smeevil/open_exchange_rates/badge.svg?branch=master" alt="Coverage Status"/></a> <a href="https://beta.hexfaktor.org/github/smeevil/open_exchange_rates"><img src="https://beta.hexfaktor.org/badge/all/github/smeevil/open_exchange_rates.svg" alt="Deps Status"/></a></p>
 <p>This Elixir library uses the <a href="https://openexchangerates.org">openexchangerates.org</a> API to retieve the latest exchange rates.</p>
 <p>At initialization of the library, it will use the latest exchange rates from a cache file. After initialization it will immediately try to get the latest exchange rates from openexchangerates.org. If this fails it will retry to get a new update every minute.</p>
 <p>After a successful update, it will check every minute if the cache needs to be updated and fetches the new rates from openexchangerates.org. You can configure the cache time, which by default is 24 hours. Please take in account that every check will be taking credits from your API usage.</p>
