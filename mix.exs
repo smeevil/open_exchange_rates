@@ -11,7 +11,7 @@ defmodule OpenExchangeRates.Mixfile do
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
       deps: deps(),
-      docs: [extras: ["README.md"]],
+      docs: [extras: ["README.md", "CHANGELOG.md"]],
       preferred_cli_env: ["coveralls": :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
       test_coverage: [tool: ExCoveralls]
     ]
@@ -43,7 +43,8 @@ defmodule OpenExchangeRates.Mixfile do
       files: ["lib", "priv", "mix.exs", "README*", "LICENSE*", "CHANGELOG*"],
       links: %{
         "GitHub" => "https://github.com/smeevil/open_exchange_rates",
-        "Docs"   => "https://smeevil.github.com/open_exchange_rates"
+        "Docs"   => "https://smeevil.github.com/open_exchange_rates",
+        "Changelog"   => "https://smeevil.github.com/open_exchange_rates/doc/changelog.html",
       }
     ]
   end
