@@ -12,4 +12,6 @@ config :exvcr, [
 
 config :open_exchange_rates,
   app_id: System.get_env("OER_APP_ID"),
-  cache_time_in_minutes: 1440
+  cache_time_in_minutes: 1440,
+  cache_file: File.cwd! <> "/fixture/exchange_data.json",
+  auto_update: false

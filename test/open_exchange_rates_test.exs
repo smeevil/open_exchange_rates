@@ -10,9 +10,13 @@ defmodule OpenExchangeRatesTest do
     assert {:error, "unknown currency: BLA"} = OpenExchangeRates.convert_cents(100, :BLA, :EUR)
   end
 
+  test "get conversion rate between two currencies" do
+    {:ok, 0.8481186252771619} = OpenExchangeRates.conversion_rate(:EUR, :GBP)
+  end
+
   test "convert usd to eur" do
     assert  {:ok, 90} = OpenExchangeRates.convert_cents(100, :USD, :EUR)
-    assert  {:ok, 0.902} = OpenExchangeRates.convert(1.0, :USD, :EUR)
+    assert  {:ok,  0.902} = OpenExchangeRates.convert(1.0, :USD, :EUR)
   end
 
   test "convert eur to usd" do
@@ -22,13 +26,14 @@ defmodule OpenExchangeRatesTest do
 
   test "convert eur to gbp" do
     assert  {:ok, 85} = OpenExchangeRates.convert_cents(100, :EUR, :GBP)
-    assert  {:ok, 0.8481186252771619} = OpenExchangeRates.convert(1.0, :EUR, :GBP)
+    assert   {:ok, 0.8481186252771619} = OpenExchangeRates.convert(1.0, :EUR, :GBP)
   end
 
   test "convert gbp to eur" do
     assert  {:ok, 118} = OpenExchangeRates.convert_cents(100, :GBP, :EUR)
     assert  {:ok, 1.1790803434757773} = OpenExchangeRates.convert(1.00, :GBP, :EUR)
   end
+
 
   test "sanitize user input" do
     assert  {:ok, 118} = OpenExchangeRates.convert_cents(100, "GBP", "EUR")

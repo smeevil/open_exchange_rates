@@ -4,14 +4,18 @@ defmodule OpenExchangeRates.Cache do
   """
   use GenServer
 
+  @cache_file Application.get_env(:open_exchange_rates, :cache_file) || (File.cwd! <> "/priv/latest.json")
+
   @doc false
-  def start_link, do: GenServer.start_link(__MODULE__, :waiting_for_data, name: __MODULE__)
+  def start_link, do: GenServer.start_link(__MODULE__, nil, name: __MODULE__)
 
   @doc false
   def init(_opts) do
-    :ets.new(__MODULE__, [:set, :protected, :named_table])
-    {:ok, :waiting_for_data}
+    {:ok, :ets.new(__MODULE__, [:set, :protected, :named_table])}
   end
+
+  @doc false
+  def file, do: @cache_file
 
   @doc false
   @spec rate_for_currency((String.t| Atom.t)) :: {:ok, Float.t} | {:error, String.t}

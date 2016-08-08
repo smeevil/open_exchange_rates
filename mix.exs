@@ -6,7 +6,7 @@ defmodule OpenExchangeRates.Mixfile do
       app: :open_exchange_rates,
       description: "A library that can convert currencies and uses automatic updating of the currrency rates using openexchangerates.org",
       package: package,
-      version: "0.1.0",
+      version: "0.2.0",
       elixir: "~> 1.3",
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,

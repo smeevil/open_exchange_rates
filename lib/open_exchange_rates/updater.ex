@@ -6,7 +6,6 @@ defmodule OpenExchangeRates.Updater do
   require Logger
   use GenServer
 
-  @cache_file (File.cwd! <> "/priv/latest.json")
   @update_interval_in_seconds 60
 
   @doc false
@@ -32,24 +31,17 @@ defmodule OpenExchangeRates.Updater do
   end
 
   defp maybe_load_data_from_disk do
-    case File.exists?(@cache_file) do
-      true -> @cache_file |> File.read! |> Poison.decode! |> update_cache!
-      false -> update!
+    case File.exists?(OpenExchangeRates.Cache.file) do
+      true -> OpenExchangeRates.Cache.file |> File.read! |> Poison.decode! |> update_cache!
+      false -> update
     end
   end
 
   defp write_to_disk!(data) do
     GenServer.call(__MODULE__, {:set_last_updated_at, :os.system_time(:seconds)})
     json = Poison.encode!(data)
-    File.write!(@cache_file, json)
+    File.write!(OpenExchangeRates.Cache.file, json)
     data
-  end
-
-  defp update! do
-    case update do
-      {:error, message} -> raise(message)
-      other -> other
-    end
   end
 
   defp update do
@@ -57,6 +49,13 @@ defmodule OpenExchangeRates.Updater do
     case OpenExchangeRates.Client.get_latest do
       {:ok, data} -> data |> write_to_disk! |> update_cache!
       {:error, message} -> {:error, message}
+    end
+  end
+
+  defp update! do
+    case update do
+      {:error, message} -> raise(message)
+      other -> other
     end
   end
 
