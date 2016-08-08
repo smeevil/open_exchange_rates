@@ -52,13 +52,6 @@ defmodule OpenExchangeRates.Updater do
     end
   end
 
-  defp update! do
-    case update do
-      {:error, message} -> raise(message)
-      other -> other
-    end
-  end
-
   defp update_cache!(%{"rates" => rates}), do: GenServer.call(OpenExchangeRates.Cache, {:update!, rates})
   defp update_cache!(data), do: raise "Data was corrupted ? #{inspect data}"
 
