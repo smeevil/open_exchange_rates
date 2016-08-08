@@ -44,7 +44,7 @@ defmodule OpenExchangeRates.Mixfile do
       links: %{
         "GitHub" => "https://github.com/smeevil/open_exchange_rates",
         "Docs"   => "https://smeevil.github.com/open_exchange_rates",
-        "Changelog"   => "https://smeevil.github.com/open_exchange_rates/doc/changelog.html",
+        "Changelog"   => "https://smeevil.github.com/open_exchange_rates/changelog.html",
       }
     ]
   end
