@@ -23,8 +23,11 @@ defmodule OpenExchangeRates.Client do
   end
 
   defp handle_api_error(body) do
-    data = Poison.decode!(body)
-    if data["message"] == "invalid_app_id", do: Logger.error("OpenExchangeRates: The app id `#{@app_id}` is not valid !")
-    {:error, data["description"]}
+    case Poison.decode(body) do
+      {:ok, data} ->
+        if data["message"] == "invalid_app_id", do: Logger.error("OpenExchangeRates: The app id `#{@app_id}` is not valid !")
+        {:error, data["description"]}
+      _ -> {:error, "Could not parse the JSON : #{inspect body}"}
+    end
   end
 end

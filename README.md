@@ -30,14 +30,43 @@ OpenExchangeRates.rate_for_currency(:EUR)
 ```elixir
 OpenExchangeRates.convert(100.00, :EUR, :GBP)
 {:ok, 84.81186252771619}
+
+OpenExchangeRates.convert!(100.00, :EUR, :GBP)
+84.81186252771619
 ```
 
 - Convert cents in any currency to an other
 ```elixir
 OpenExchangeRates.convert_cents(100, :GBP, :AUD)
 {:ok, 172}
+
+OpenExchangeRates.convert_cents!(100, :GBP, :AUD)
+172
 ```
 
+- convert a currency and return a properly formatted string for that currency
+```elixir
+OpenExchangeRates.convert_and_format(1234, :EUR, :AUD)
+{:ok, "A$1,795.10"}
+
+OpenExchangeRates.convert_and_format!(1234, :EUR, :AUD)
+"A$1,795.10"
+```
+
+- convert cents and return a properly formatted string for that currency
+```elixir
+OpenExchangeRates.convert_cents_and_format(1234567, :EUR, :NOK)
+{:ok, "116.495,78NOK"}
+
+OpenExchangeRates.convert_cents_and_format!(1234567, :EUR, :NOK)
+"116.495,78NOK"
+```
+
+- Get the age of the cache in seconds
+```elixir
+OpenExchangeRates.cache_age
+25341
+```
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:

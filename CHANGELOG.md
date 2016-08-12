@@ -1,3 +1,10 @@
+## 0.3.0 (2016-08-12)
+  - The updater is no longer a genserver but a recursive call which is started and linked by the cache
+  - Cache can now return a cache age and the updater will properly honer th cache time.
+  - When starting the app, it will check the cache age of the cache file, and use that if its still valid, otherwise do a direct update
+  - Added bang methods
+  - Added methods to return a formatted currency string
+
 ## 0.2.0 (2016-08-08)
   - OpenExchangeRates.rate_for_currency/1 is now OpenExchangeRates.conversion_rate/2
   - Config now accepts two new settings

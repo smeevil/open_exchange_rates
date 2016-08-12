@@ -1,0 +1,28 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://openexchangerates.org/api/latest.json?base=USD&app_id=APP_ID_PLACEHOLDER"
+    },
+    "response": {
+      "body": "{\n  \"description\": \"Something went horribly wrong!\"}",
+      "headers": {
+        "Date": "Sun, 07 Aug 2016 00:39:39 GMT",
+        "Server": "Apache",
+        "Last-Modified": "Sun, 07 Aug 2016 00:35:03 GMT",
+        "Cache-Control": "public",
+        "ETag": "\"fce877204605c7c394b136bab4e6069c\"",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Length": "4199",
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "status_code": 401,
+      "type": "ok"
+    }
+  }
+]

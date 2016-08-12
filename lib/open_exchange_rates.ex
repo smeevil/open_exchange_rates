@@ -10,26 +10,10 @@ defmodule OpenExchangeRates do
     import Supervisor.Spec, warn: false
 
     configuration_status = check_configuration
+    children = [worker(OpenExchangeRates.Cache, [configuration_status])]
 
-    children = [
-      worker(OpenExchangeRates.Cache, []),
-    ]
-
-    children = case configuration_status do
-      :ok -> children ++ [worker(OpenExchangeRates.Updater, [])]
-      _ -> children
-    end
-
-    opts = [strategy: :one_for_all, name: OpenExchangeRates.Supervisor]
-    {:ok, pid} = Supervisor.start_link(children, opts)
-
-    case configuration_status do
-      :disable_updater -> load_data_from_file
-      :missing_key -> load_data_from_file
-      _ -> nil
-    end
-
-    {:ok, pid}
+    opts = [strategy: :one_for_one, name: OpenExchangeRates.Supervisor]
+    Supervisor.start_link(children, opts)
   end
 
   @doc"""
@@ -45,6 +29,16 @@ defmodule OpenExchangeRates do
   def available_currencies, do: OpenExchangeRates.Cache.currencies
 
   @doc"""
+  Returns the age of the cache in seconds
+
+  ## example
+      OpenExchangeRates.cache_age
+      25341
+  """
+  @spec cache_age() :: Integer.t
+  def cache_age, do: OpenExchangeRates.Cache.cache_age
+
+  @doc"""
   Will convert a price from once currency to another
 
   ## example
@@ -53,6 +47,8 @@ defmodule OpenExchangeRates do
       {:ok, 84.81186252771619}
 
   """
+  @spec convert(Integer.t, (String.t | Atom.t), (String.t | Atom.t)) :: {:ok, Float.t} | {:error, String.t}
+  def convert(value, from, to) when is_integer(value), do: convert((value/1.0), from, to)
   @spec convert(Float.t, (String.t | Atom.t), (String.t | Atom.t)) :: {:ok, Float.t} | {:error, String.t}
   def convert(value, from, to) when is_float(value) do
     with \
@@ -64,6 +60,28 @@ defmodule OpenExchangeRates do
       {:ok, converted}
     else
       error -> error
+    end
+  end
+
+
+  @doc """
+  bang method of convert/3
+  Will either return the result or raise when there was an error
+  ## examples
+
+      iex> OpenExchangeRates.convert!(100.00, :EUR, :GBP)
+      84.81186252771619
+
+      iex> OpenExchangeRates.convert!(100, :EUR, :GBP)
+      84.81186252771619
+  """
+  @spec convert!(Integer.t, (String.t | Atom.t), (String.t | Atom.t)) :: {:ok, Float.t} | {:error, String.t}
+  def convert!(value, from, to) when is_integer(value), do: convert!((value/1.0), from, to)
+  @spec convert!(Float.t, (String.t | Atom.t), (String.t | Atom.t)) :: {:ok, Float.t} | {:error, String.t}
+  def convert!(value, from, to) when is_float(value) do
+    case convert(value, from, to) do
+      {:ok, result} -> result
+      {:error, message} -> raise(message)
     end
   end
 
@@ -81,6 +99,93 @@ defmodule OpenExchangeRates do
     case convert(value/100, from, to) do
       {:ok, result} -> {:ok, Kernel.round(result * 100)}
       error -> error
+    end
+  end
+
+  @doc """
+  bang method of convert_cents/3
+  Will either return the result or raise when there was an error
+  ## example
+
+      iex> OpenExchangeRates.convert_cents!(100, :GBP, :AUD)
+      172
+  """
+  @spec convert_cents!(Integer.t, (String.t | Atom.t), (String.t | Atom.t)) :: {:ok, Integer.t} | {:error, String.t}
+  def convert_cents!(value, from, to) when is_integer(value) do
+    case convert_cents(value, from, to) do
+      {:ok, result} -> result
+      {:error, message} -> raise(message)
+    end
+  end
+
+  @doc"""
+  Converts cents and returns a properly formatted string for the given currency.
+
+  # Examples
+
+      iex> OpenExchangeRates.convert_cents_and_format(1234567, :EUR, :CAD)
+      {:ok, "C$18,026.07"}
+
+      iex> OpenExchangeRates.convert_cents_and_format(1234567, :EUR, :USD)
+      {:ok, "$13,687"}
+
+      iex> OpenExchangeRates.convert_cents_and_format(1234567, :USD, :EUR)
+      {:ok, "€11.135,79"}
+
+      iex> OpenExchangeRates.convert_cents_and_format(1234567, :EUR, :NOK)
+      {:ok, "116.495,78NOK"}
+  """
+  @spec convert_cents_and_format(Integer.t, (Atom.t | String.t), (Atom.t | String.t)) :: String.t
+  def convert_cents_and_format(value, from, to) when is_integer(value) do
+    case convert_cents(value, from, to) do
+      {:ok, result} -> {:ok, CurrencyFormatter.format(result, to)}
+      error -> error
+    end
+  end
+
+  @doc """
+  Bang version of convert_cents_and_format/3
+  Will either return the result or raise when there was an error
+
+  #example
+
+      iex> OpenExchangeRates.convert_cents_and_format!(1234567, :EUR, :USD)
+      "$13,687"
+  """
+  @spec convert_cents_and_format!(Integer.t, (Atom.t | String.t), (Atom.t | String.t)) :: String.t
+  def convert_cents_and_format!(value, from, to) when is_integer(value) do
+    case convert_cents_and_format(value, from, to) do
+      {:ok, result} -> result
+      {:error, message} -> raise(message)
+    end
+  end
+
+  @doc"""
+  Converts a price and returns a properly formatted string for the given currency.
+
+  # Examples
+
+      iex> OpenExchangeRates.convert_and_format(1234, :EUR, :AUD)
+      {:ok, "A$1,795.10"}
+  """
+  @spec convert_and_format((Integer.t | Float.t), (Atom.t | String.t), (Atom.t | String.t)) :: String.t
+  def convert_and_format(value, from, to), do: convert_cents_and_format((Kernel.round(value * 100)), from, to)
+
+
+  @doc """
+  Bang version of convert_and_format/3
+  Will either return the result or raise when there was an error
+
+  #example
+
+      iex> OpenExchangeRates.convert_and_format!(1234567, :EUR, :USD)
+      "$1,368,699.56"
+  """
+  @spec convert_and_format!((Integer.t | Float.t), (Atom.t | String.t), (Atom.t | String.t)) :: String.t
+  def convert_and_format!(value, from, to) when is_integer(value) do
+    case convert_and_format(value, from, to) do
+      {:ok, result} -> result
+      {:error, message} -> raise(message)
     end
   end
 
@@ -122,15 +227,5 @@ If you need an api key please sign up at https://openexchangerates.org/signup
 
 This module will continue to function but will use (outdated) cached exchange rates data...
     ]
-  end
-
-  defp load_data_from_file do
-    if File.exists?(OpenExchangeRates.Cache.file) do
-      OpenExchangeRates.Cache.file
-      |> File.read!
-      |> Poison.decode!
-      |> Map.fetch!("rates")
-      |> OpenExchangeRates.Cache.update!
-    end
   end
 end

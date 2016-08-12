@@ -6,7 +6,7 @@ defmodule OpenExchangeRates.Mixfile do
       app: :open_exchange_rates,
       description: "A library that can convert currencies and uses automatic updating of the currrency rates using openexchangerates.org",
       package: package,
-      version: "0.2.0",
+      version: "0.3.0",
       elixir: "~> 1.3",
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
@@ -20,7 +20,7 @@ defmodule OpenExchangeRates.Mixfile do
   def application do
     [
       mod: {OpenExchangeRates, []},
-      applications: [:logger, :httpoison]
+      applications: [:logger, :httpoison, :currency_formatter]
     ]
   end
 
@@ -33,6 +33,7 @@ defmodule OpenExchangeRates.Mixfile do
       {:mix_test_watch, "~>0.2.6", only: [:dev, :test]},
       {:ex_doc, "~>0.13.0", only: [:dev, :test]},
       {:excoveralls, "~> 0.5", only: :test},
+      {:currency_formatter, "~>0.4.2"}
     ]
   end
 

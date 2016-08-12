@@ -1,0 +1,18 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://openexchangerates.org/api/latest.json?base=USD&app_id=APP_ID_PLACEHOLDER"
+    },
+    "response": {
+      "body": "econnrefused",
+      "headers": [],
+      "status_code": null,
+      "type": "error"
+    }
+  }
+]

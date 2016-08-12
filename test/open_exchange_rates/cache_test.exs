@@ -4,13 +4,21 @@ defmodule OpenExchangeRates.CacheTest do
 
   doctest OpenExchangeRates.Cache
 
-#  test "it should return a timestamp of the cache" do
-#    assert {:ok, 1470489905} = OpenExchangeRates.Cache.timestamp
-#  end
+  test "it should an error for an unknown currency" do
+    assert  {:error, "unknown currency: BLA"} == OpenExchangeRates.Cache.rate_for_currency("BLA")
+  end
 
-#  test "it should get exchange rates" do
-#    use_cassette "client/get_latest" do
-#      assert {:ok, %{"timestamp" => 1470486903}} = OpenExchangeRates.Cache.update
-#    end
-#  end
+  test "it should return a rate for a currency" do
+    assert  {:ok, 0.902} == OpenExchangeRates.Cache.rate_for_currency("EUR")
+  end
+
+  test "it should update its rates" do
+    {:ok, rate} = OpenExchangeRates.Cache.rate_for_currency("EUR")
+    assert 0.902 == rate
+    OpenExchangeRates.Cache.update!(%{"EUR" => 0.1}, :os.system_time(:seconds))
+    assert {:ok, 0.1} == OpenExchangeRates.Cache.rate_for_currency("EUR")
+
+    #reset to original value
+    OpenExchangeRates.Cache.update!(%{"EUR" => rate}, :os.system_time(:seconds))
+  end
 end
