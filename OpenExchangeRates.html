@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.13.0">
-    <title>OpenExchangeRates – open_exchange_rates v0.2.0</title>
+    <title>OpenExchangeRates – open_exchange_rates v0.3.0</title>
     <link rel="stylesheet" href="dist/app-9c1e3d5aa2.css" />
     
     <script src="dist/sidebar_items.js"></script>
@@ -26,7 +26,7 @@
         open_exchange_rates
       </h1>
       <h2 class="sidebar-projectVersion">
-        v0.2.0
+        v0.3.0
       </h2>
     </div>
     
@@ -59,7 +59,7 @@
 
 
       <h1>
-        <small class="visible-xs">open_exchange_rates v0.2.0</small>
+        <small class="visible-xs">open_exchange_rates v0.3.0</small>
         OpenExchangeRates
         
         
@@ -98,6 +98,15 @@
 </div>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="#cache_age/0">cache_age()</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the age of the cache in seconds</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#conversion_rate/2">conversion_rate(from, to)</a>
   </div>
   
@@ -116,10 +125,70 @@
 </div>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="#convert!/3">convert!(value, from, to)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>bang method of convert/3
+Will either return the result or raise when there was an error</p>
+<h2>examples</h2>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#convert_and_format/3">convert_and_format(value, from, to)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Converts a price and returns a properly formatted string for the given currency</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#convert_and_format!/3">convert_and_format!(value, from, to)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Bang version of convert_and_format/3
+Will either return the result or raise when there was an error</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#convert_cents/3">convert_cents(value, from, to)</a>
   </div>
   
     <div class="summary-synopsis"><p>Will convert cents from once currency to another</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#convert_cents!/3">convert_cents!(value, from, to)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>bang method of convert_cents/3
+Will either return the result or raise when there was an error</p>
+<h2>example</h2>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#convert_cents_and_format/3">convert_cents_and_format(value, from, to)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Converts cents and returns a properly formatted string for the given currency</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#convert_cents_and_format!/3">convert_cents_and_format!(value, from, to)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Bang version of convert_cents_and_format/3
+Will either return the result or raise when there was an error</p>
 </div>
   
 </div>
@@ -171,6 +240,33 @@
 
   </section>
 </div>
+<div class="detail" id="cache_age/0">
+  <div class="detail-header">
+    <a href="#cache_age/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">cache_age()</span>
+    
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">cache_age :: <a href="http://elixir-lang.org/docs/stable/elixir/Integer.html#t:t/0">Integer.t</a></code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns the age of the cache in seconds</p>
+<h2>example</h2>
+<pre><code class="elixir">OpenExchangeRates.cache_age
+25341</code></pre>
+
+  </section>
+</div>
 <div class="detail" id="conversion_rate/2">
   <div class="detail-header">
     <a href="#conversion_rate/2" class="detail-link" title="Link to this function">
@@ -214,6 +310,10 @@
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
+          <pre><code class="elixir">convert(<a href="http://elixir-lang.org/docs/stable/elixir/Integer.html#t:t/0">Integer.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/Atom.html#t:t/0">Atom.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/Atom.html#t:t/0">Atom.t</a>) ::
+  {:ok, <a href="http://elixir-lang.org/docs/stable/elixir/Float.html#t:t/0">Float.t</a>} |
+  {:error, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>}</code></pre>
+        
           <pre><code class="elixir">convert(<a href="http://elixir-lang.org/docs/stable/elixir/Float.html#t:t/0">Float.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/Atom.html#t:t/0">Atom.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/Atom.html#t:t/0">Atom.t</a>) ::
   {:ok, <a href="http://elixir-lang.org/docs/stable/elixir/Float.html#t:t/0">Float.t</a>} |
   {:error, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>}</code></pre>
@@ -226,6 +326,98 @@
 <h2>example</h2>
 <pre><code class="iex elixir">iex&gt; OpenExchangeRates.convert(100.00, :EUR, :GBP)
 {:ok, 84.81186252771619}</code></pre>
+
+  </section>
+</div>
+<div class="detail" id="convert!/3">
+  <div class="detail-header">
+    <a href="#convert!/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">convert!(value, from, to)</span>
+    
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">convert!(<a href="http://elixir-lang.org/docs/stable/elixir/Integer.html#t:t/0">Integer.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/Atom.html#t:t/0">Atom.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/Atom.html#t:t/0">Atom.t</a>) ::
+  {:ok, <a href="http://elixir-lang.org/docs/stable/elixir/Float.html#t:t/0">Float.t</a>} |
+  {:error, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>}</code></pre>
+        
+          <pre><code class="elixir">convert!(<a href="http://elixir-lang.org/docs/stable/elixir/Float.html#t:t/0">Float.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/Atom.html#t:t/0">Atom.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/Atom.html#t:t/0">Atom.t</a>) ::
+  {:ok, <a href="http://elixir-lang.org/docs/stable/elixir/Float.html#t:t/0">Float.t</a>} |
+  {:error, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>}</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>bang method of convert/3
+Will either return the result or raise when there was an error</p>
+<h2>examples</h2>
+<pre><code class="iex elixir">iex&gt; OpenExchangeRates.convert!(100.00, :EUR, :GBP)
+84.81186252771619
+
+iex&gt; OpenExchangeRates.convert!(100, :EUR, :GBP)
+84.81186252771619</code></pre>
+
+  </section>
+</div>
+<div class="detail" id="convert_and_format/3">
+  <div class="detail-header">
+    <a href="#convert_and_format/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">convert_and_format(value, from, to)</span>
+    
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">convert_and_format(<a href="http://elixir-lang.org/docs/stable/elixir/Integer.html#t:t/0">Integer.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/Float.html#t:t/0">Float.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/Atom.html#t:t/0">Atom.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/Atom.html#t:t/0">Atom.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Converts a price and returns a properly formatted string for the given currency.</p>
+<h1>Examples</h1>
+<pre><code class="iex elixir">iex&gt; OpenExchangeRates.convert_and_format(1234, :EUR, :AUD)
+{:ok, &quot;A$1,795.10&quot;}</code></pre>
+
+  </section>
+</div>
+<div class="detail" id="convert_and_format!/3">
+  <div class="detail-header">
+    <a href="#convert_and_format!/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">convert_and_format!(value, from, to)</span>
+    
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">convert_and_format!(<a href="http://elixir-lang.org/docs/stable/elixir/Integer.html#t:t/0">Integer.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/Float.html#t:t/0">Float.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/Atom.html#t:t/0">Atom.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/Atom.html#t:t/0">Atom.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Bang version of convert_and_format/3
+Will either return the result or raise when there was an error</p>
+<p>#example</p>
+<pre><code class="iex elixir">iex&gt; OpenExchangeRates.convert_and_format!(1234567, :EUR, :USD)
+&quot;$1,368,699.56&quot;</code></pre>
 
   </section>
 </div>
@@ -255,6 +447,100 @@
 <h2>example</h2>
 <pre><code class="iex elixir">iex&gt; OpenExchangeRates.convert_cents(100, :GBP, :AUD)
 {:ok, 172}</code></pre>
+
+  </section>
+</div>
+<div class="detail" id="convert_cents!/3">
+  <div class="detail-header">
+    <a href="#convert_cents!/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">convert_cents!(value, from, to)</span>
+    
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">convert_cents!(<a href="http://elixir-lang.org/docs/stable/elixir/Integer.html#t:t/0">Integer.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/Atom.html#t:t/0">Atom.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/Atom.html#t:t/0">Atom.t</a>) ::
+  {:ok, <a href="http://elixir-lang.org/docs/stable/elixir/Integer.html#t:t/0">Integer.t</a>} |
+  {:error, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>}</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>bang method of convert_cents/3
+Will either return the result or raise when there was an error</p>
+<h2>example</h2>
+<pre><code class="iex elixir">iex&gt; OpenExchangeRates.convert_cents!(100, :GBP, :AUD)
+172</code></pre>
+
+  </section>
+</div>
+<div class="detail" id="convert_cents_and_format/3">
+  <div class="detail-header">
+    <a href="#convert_cents_and_format/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">convert_cents_and_format(value, from, to)</span>
+    
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">convert_cents_and_format(<a href="http://elixir-lang.org/docs/stable/elixir/Integer.html#t:t/0">Integer.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/Atom.html#t:t/0">Atom.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/Atom.html#t:t/0">Atom.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Converts cents and returns a properly formatted string for the given currency.</p>
+<h1>Examples</h1>
+<pre><code class="iex elixir">iex&gt; OpenExchangeRates.convert_cents_and_format(1234567, :EUR, :CAD)
+{:ok, &quot;C$18,026.07&quot;}
+
+iex&gt; OpenExchangeRates.convert_cents_and_format(1234567, :EUR, :USD)
+{:ok, &quot;$13,687&quot;}
+
+iex&gt; OpenExchangeRates.convert_cents_and_format(1234567, :USD, :EUR)
+{:ok, &quot;€11.135,79&quot;}
+
+iex&gt; OpenExchangeRates.convert_cents_and_format(1234567, :EUR, :NOK)
+{:ok, &quot;116.495,78NOK&quot;}</code></pre>
+
+  </section>
+</div>
+<div class="detail" id="convert_cents_and_format!/3">
+  <div class="detail-header">
+    <a href="#convert_cents_and_format!/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">convert_cents_and_format!(value, from, to)</span>
+    
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">convert_cents_and_format!(<a href="http://elixir-lang.org/docs/stable/elixir/Integer.html#t:t/0">Integer.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/Atom.html#t:t/0">Atom.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/Atom.html#t:t/0">Atom.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Bang version of convert_cents_and_format/3
+Will either return the result or raise when there was an error</p>
+<p>#example</p>
+<pre><code class="iex elixir">iex&gt; OpenExchangeRates.convert_cents_and_format!(1234567, :EUR, :USD)
+&quot;$13,687&quot;</code></pre>
 
   </section>
 </div>

@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.13.0">
-    <title>CHANGELOG – open_exchange_rates v0.2.0</title>
+    <title>CHANGELOG – open_exchange_rates v0.3.0</title>
     <link rel="stylesheet" href="dist/app-9c1e3d5aa2.css" />
     
     <script src="dist/sidebar_items.js"></script>
@@ -26,7 +26,7 @@
         open_exchange_rates
       </h1>
       <h2 class="sidebar-projectVersion">
-        v0.2.0
+        v0.3.0
       </h2>
     </div>
     
@@ -58,6 +58,19 @@
     <div id="content" class="content-inner">
 
 
+<h2>0.3.0 (2016-08-12)</h2>
+<ul>
+<li>The updater is no longer a genserver but a recursive call which is started and linked by the cache
+</li>
+<li>Cache can now return a cache age and the updater will properly honer th cache time.
+</li>
+<li>When starting the app, it will check the cache age of the cache file, and use that if its still valid, otherwise do a direct update
+</li>
+<li>Added bang methods
+</li>
+<li>Added methods to return a formatted currency string
+</li>
+</ul>
 <h2>0.2.0 (2016-08-08)</h2>
 <ul>
 <li>OpenExchangeRates.rate_for_currency/1 is now OpenExchangeRates.conversion_rate/2

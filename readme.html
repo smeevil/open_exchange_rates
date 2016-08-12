@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.13.0">
-    <title>README – open_exchange_rates v0.2.0</title>
+    <title>README – open_exchange_rates v0.3.0</title>
     <link rel="stylesheet" href="dist/app-9c1e3d5aa2.css" />
     
     <script src="dist/sidebar_items.js"></script>
@@ -26,7 +26,7 @@
         open_exchange_rates
       </h1>
       <h2 class="sidebar-projectVersion">
-        v0.2.0
+        v0.3.0
       </h2>
     </div>
     
@@ -85,13 +85,43 @@
 </li>
 </ul>
 <pre><code class="elixir">OpenExchangeRates.convert(100.00, :EUR, :GBP)
-{:ok, 84.81186252771619}</code></pre>
+{:ok, 84.81186252771619}
+
+OpenExchangeRates.convert!(100.00, :EUR, :GBP)
+84.81186252771619</code></pre>
 <ul>
 <li>Convert cents in any currency to an other
 </li>
 </ul>
 <pre><code class="elixir">OpenExchangeRates.convert_cents(100, :GBP, :AUD)
-{:ok, 172}</code></pre>
+{:ok, 172}
+
+OpenExchangeRates.convert_cents!(100, :GBP, :AUD)
+172</code></pre>
+<ul>
+<li>convert a currency and return a properly formatted string for that currency
+</li>
+</ul>
+<pre><code class="elixir">OpenExchangeRates.convert_and_format(1234, :EUR, :AUD)
+{:ok, &quot;A$1,795.10&quot;}
+
+OpenExchangeRates.convert_and_format!(1234, :EUR, :AUD)
+&quot;A$1,795.10&quot;</code></pre>
+<ul>
+<li>convert cents and return a properly formatted string for that currency
+</li>
+</ul>
+<pre><code class="elixir">OpenExchangeRates.convert_cents_and_format(1234567, :EUR, :NOK)
+{:ok, &quot;116.495,78NOK&quot;}
+
+OpenExchangeRates.convert_cents_and_format!(1234567, :EUR, :NOK)
+&quot;116.495,78NOK&quot;</code></pre>
+<ul>
+<li>Get the age of the cache in seconds
+</li>
+</ul>
+<pre><code class="elixir">OpenExchangeRates.cache_age
+25341</code></pre>
 <h2 id="installation" class="section-heading">
   <a href="#installation" class="hover-link"><i class="icon-link"></i></a>
    Installation
